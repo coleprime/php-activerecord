@@ -395,7 +395,7 @@ class Table
 	 *
 	 * @param Relationship $relationship a Relationship object
 	 */
-	public function add_relationship($relationship) { // RagingBits (from private to public)
+	public function add_relationship($relationship) // RagingBits (from private to public)
 	{
 		$this->relationships[$relationship->attribute_name] = $relationship;
 	}
