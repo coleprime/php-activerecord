@@ -216,16 +216,16 @@ class Table
 		$readonly = (array_key_exists('readonly',$options) && $options['readonly']) ? true : false;
 		$eager_load = array_key_exists('include',$options) ? $options['include'] : null;
 		
-		if ($options['query_info']) {
-		    return [
-                'query' => $sql->to_s(),
-                'values' => $sql->get_where_values(),
-                'readonly' => $readonly,
-                'eager_load' => $eager_load
-            ];
-        } else {
-            return $this->find_by_sql($sql->to_s(),$sql->get_where_values(), $readonly, $eager_load);    
-        }
+		if (!empty($options['query_info'])) {
+			return [
+				'query' => $sql->to_s(),
+				'values' => $sql->get_where_values(),
+				'readonly' => $readonly,
+				'eager_load' => $eager_load
+			];
+		} else {
+			return $this->find_by_sql($sql->to_s(),$sql->get_where_values(), $readonly, $eager_load);	
+		}
 	}
 
 	public function cache_key_for_model($pk)
@@ -395,7 +395,7 @@ class Table
 	 *
 	 * @param Relationship $relationship a Relationship object
 	 */
-	private function add_relationship($relationship)
+	public function add_relationship($relationship) { // RagingBits (from private to public)
 	{
 		$this->relationships[$relationship->attribute_name] = $relationship;
 	}
@@ -558,8 +558,8 @@ class Table
 	 * Will end up consisting of array of:
 	 *
 	 * array('delegate' => array('field1','field2',...),
-	 *       'to'       => 'delegate_to_relationship',
-	 *       'prefix'	=> 'prefix')
+	 *	   'to'	   => 'delegate_to_relationship',
+	 *	   'prefix'	=> 'prefix')
 	 */
 	private function set_delegates()
 	{
