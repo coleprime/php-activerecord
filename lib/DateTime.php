@@ -33,7 +33,7 @@ namespace ActiveRecord;
  * @package ActiveRecord
  * @see http://php.net/manual/en/class.datetime.php
  */
-class DateTime extends \DateTime implements DateTimeInterface
+class DateTime extends \DateTime implements DateTimeInterface, \JsonSerializable
 {
 	/**
 	 * Default format used for format() and __toString()
@@ -128,6 +128,14 @@ class DateTime extends \DateTime implements DateTimeInterface
 		return $ourDate;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function jsonSerialize()
+	{
+		return $this->format("c");
+	}
+
 	public function __toString()
 	{
 		return $this->format();
@@ -182,13 +190,13 @@ class DateTime extends \DateTime implements DateTimeInterface
 		$this->flag_dirty();
 		return parent::setTimezone($timezone);
 	}
-	
+
 	public function modify($modify)
 	{
 		$this->flag_dirty();
 		return parent::modify($modify);
 	}
-	
+
 	public function add($interval)
 	{
 		$this->flag_dirty();
