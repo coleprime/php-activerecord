@@ -29,8 +29,8 @@ Because we do not actively maintain tags or versions for this project, you shoul
 
 ### Fixes
 
-- Compatibility with PHP 7.1+ (DateTime).
-- `activerecord_autoload` does not cause conflicts if the library is somehow autolaoded more than once.
+- Compatibility with PHP 7.2+ (DateTime).
+- `activerecord_autoload` no longer causes conflicts when the library is loaded more than once.
 - Fix `count(): Parameter must be an array or an object that implements Countable` error in `find_by_pk()`.
 - Fix `castIntegerSafely()` throwing an error if the input is empty (e.g. empty string), now just returns zero.
  
@@ -39,6 +39,7 @@ Because we do not actively maintain tags or versions for this project, you shoul
 - DateTime: Implement \JsonSerializable, format in "c" mode.
 - Added experimental `reconnect()` function to `Connection`.
 - Added `stupidfastquery($options)`: this converts options to a query and returns the raw PDO result set without any activerecord magic.
+- Added `stupidfastqueryValues($options, $colIndex = 0)`: runs a `stupidfastquery` and returns an array of column values.
 - Added `stupidfastcount($options)`: run query, only return row count. 
 - Added `find_all_with_wrapped_sort($options)`: this wraps the results in a separate SELECT for faster sorting on JOIN heavy queries.
 - Pass `query_info` to `find($options)` options to get generated query data as result (used internally by `stupidfastcount` & co) - can be used if you want to convert `$options` to an actual statement: 
