@@ -12,7 +12,7 @@
       "maximebf/debugbar": "This package can intergrate into the PHP Debugbar"
     },
     "replace": {
-      "php-activerecord": "*"
+      "php-activerecord/php-activerecord": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*",
