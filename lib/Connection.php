@@ -363,8 +363,11 @@ abstract class Connection
 			if (!$sth->execute($values))
 				throw new DatabaseException($this);
 		} catch (PDOException $e) {
-// 			throw new DatabaseException($e);
-			debug_backtrace_to_temp_log(true, $e);
+			if( function_exists('debug_backtrace_to_temp_log') ) {
+				debug_backtrace_to_temp_log(true, $e);
+			} else {
+				throw new DatabaseException($e);
+			}
 		}
 		return $sth;
 	}
