@@ -341,10 +341,15 @@ class Model
 		{
 			$name = "get_$name";
 			$value = $this->$name();
-			return $value;
+		} else {
+			$value = $this->read_attribute($name);
+		}
+		// Mudworks custom value filtering
+		if( preg_match( '/^(.*?_(depth|diameter|length)|from)$/i', $name ) ) {
+			$value = (float)$value;
 		}
 
-		return $this->read_attribute($name);
+		return $value;
 	}
 
 	/**
